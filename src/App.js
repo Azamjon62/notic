@@ -1,15 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
-import './messaging_init_in_sw';
+import { useEffect } from 'react';
+import { onMessage } from 'firebase/messaging';
+import { generateToken, messaging } from './notifications/firebase';
 
 function App() {
+  useEffect(() => {
+    generateToken()
+    onMessage(messaging, (payload) => {
+      console.log(payload);
+    })
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        <h6>
           Edit <code>src/App.js</code> and save to reload.
-        </p>
+        </h6>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -18,6 +27,10 @@ function App() {
         >
           Learn React
         </a>
+        <br/>
+
+        <p id='token' style={{fontSize: 13}}> </p>
+
       </header>
     </div>
   );
