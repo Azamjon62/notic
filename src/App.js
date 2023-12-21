@@ -6,11 +6,17 @@ import { generateToken, messaging } from './notifications/firebase';
 
 function App() {
   useEffect(() => {
-    generateToken()
+    // generateToken()
     onMessage(messaging, (payload) => {
       console.log(payload);
     })
   }, []);
+
+
+  const handleNotifyClick = async () => {
+    // Request permission for notifications and generate token
+    await generateToken();
+  };
 
   return (
     <div className="App">
@@ -19,16 +25,7 @@ function App() {
         <h6>
           Edit <code>src/App.js</code> and save to reload.
         </h6>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <br/>
-
+        <button id='notify' onClick={handleNotifyClick} > Notify </button>
         <p id='token' style={{fontSize: 13}}> </p>
 
       </header>
